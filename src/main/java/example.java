@@ -26,10 +26,11 @@ public class example {
     public static BinanceApiWebSocketClient webSocketClient = BinanceApiClientFactory.newInstance().newWebSocketClient();
     public static BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance();
     public static BinanceApiRestClient apiRestClient = factory.newRestClient();
-    public static BarSeries series = new BaseBarSeries("my_live_series");
+    public static BarSeries series = new BaseBarSeries("my_live_series" );
     public static long last_unix;
+
     public static void main(String[] args){
-        List<Candlestick> candlesticks = apiRestClient.getCandlestickBars("ETHBUSD", CandlestickInterval.FIFTEEN_MINUTES);
+        List<Candlestick> candlesticks = apiRestClient.getCandlestickBars("ETHBUSD", CandlestickInterval.FIFTEEN_MINUTES).subList(300,500);
         int j = 0;
         for (Candlestick bar:candlesticks) {
             if(j++ == candlesticks.size() - 1){
@@ -62,8 +63,8 @@ public class example {
         else{
             series.addBar(bar);
             last_unix = res.getCloseTime();
+            series = series.getSubSeries(1, 201);
         }
-
         System.out.println(series.getBarCount());
     }
 

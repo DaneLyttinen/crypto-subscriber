@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.joaopsilva:binance-java-api:master-f51ee15f0f-1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/joaopsilva/binance-java-api/master-f51ee15f0f-1/binance-java-api-master-f51ee15f0f-1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/joaopsilva/binance-java-api/master-f51ee15f0f-1/binance-java-api-master-f51ee15f0f-1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/joaopsilva/binance-java-api/master-f51ee15f0f-1/binance-java-api-master-f51ee15f0f-1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
