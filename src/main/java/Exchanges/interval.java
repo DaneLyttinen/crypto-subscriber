@@ -1,3 +1,5 @@
+package Exchanges;
+
 import com.binance.api.client.domain.market.CandlestickInterval;
 
 public class interval {
