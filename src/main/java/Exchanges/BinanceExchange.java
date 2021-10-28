@@ -44,6 +44,6 @@ public class BinanceExchange implements  Exchange {
 
 
     public void handleSocketEvent(CandlestickEvent res) {
-
+        System.out.println(res.getClose());
     }
 }
