@@ -15,17 +15,31 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 public class BinanceExchange implements  Exchange {
-    public static BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance();
-    public static BinanceApiRestClient apiRestClient = factory.newRestClient();
-    public static BarSeries series = new BaseBarSeries("my_live_series" );
-    public static long last_unix;
-    public static BinanceApiWebSocketClient webSocketClient = BinanceApiClientFactory.newInstance().newWebSocketClient();
-    CandlestickInterval Interval;
+    private BinanceApiClientFactory factory;
+    private BinanceApiRestClient apiRestClient;
+    private long last_unix;
+    public CandlestickInterval Interval;
+    public BinanceApiWebSocketClient webSocketClient;
+    private static BinanceExchange instance;
+
+    private BinanceExchange(){
+        webSocketClient = BinanceApiClientFactory.newInstance().newWebSocketClient();
+        factory = BinanceApiClientFactory.newInstance();
+        apiRestClient = factory.newRestClient();
+    }
+
+    public static synchronized BinanceExchange getInstance(){
+        if (instance == null){
+            instance = new BinanceExchange();
+        }
+        return instance;
+    }
 
     @Override
-    public void getMarketData(String interval, String coin) {
+    public BaseBarSeries getMarketData(String interval, String coin) {
         Interval = new interval(interval).getInterval();
         List<Candlestick> candlesticks = apiRestClient.getCandlestickBars(coin, Interval).subList(300,500);
+        BaseBarSeries series = new BaseBarSeries("my_live_series" );
         int j = 0;
         for (Candlestick bar:candlesticks) {
             if(j++ == candlesticks.size() - 1){
@@ -35,10 +49,12 @@ public class BinanceExchange implements  Exchange {
             ZonedDateTime z = ZonedDateTime.ofInstant(i, ZoneOffset.UTC);
             series.addBar(z, bar.getOpen(), bar.getHigh(), bar.getLow(), bar.getClose(), bar.getVolume());
         }
+        return series;
     }
 
     @Override
     public void startListener(String interval, String coin) {
+        CandlestickInterval Interval = new interval(interval).getInterval();
         webSocketClient.onCandlestickEvent(coin, Interval, response -> handleSocketEvent(response));
     }
 

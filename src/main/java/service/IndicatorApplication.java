@@ -1,5 +1,6 @@
 package service;
 
+import Exchanges.BinanceExchange;
 import sun.security.timestamp.TSRequest;
 
 import javax.ws.rs.ApplicationPath;
@@ -17,6 +18,7 @@ public class IndicatorApplication extends Application {
     public IndicatorApplication() {
         classes.add(technical_indicators.class);
         classes.add(TestResource.class);
+        singletons.add(BinanceExchange.getInstance());
     }
 
     @Override
