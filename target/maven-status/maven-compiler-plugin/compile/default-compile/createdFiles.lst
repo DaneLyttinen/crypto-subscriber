@@ -1,2 +1,4 @@
 service\TestResource.class
+domain\bollingerBands.class
 example.class
+dto\indicator_requestDTO.class
