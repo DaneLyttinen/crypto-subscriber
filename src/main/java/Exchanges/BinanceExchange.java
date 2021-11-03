@@ -35,14 +35,14 @@ public class BinanceExchange implements  Exchange {
         return instance;
     }
 
-    /// getCandleStickBars seems to return 25 candlesticks instead of the default 500?
     @Override
     public BaseBarSeries getMarketData(String interval, String coin) {
         Interval = new interval(interval).getInterval();
-
         List<Candlestick> candlesticks = apiRestClient.getCandlestickBars(coin, Interval);
-        //int size = candlesticks.size();
-        //candlesticks = candlesticks.subList(size-200,size);
+        int size = candlesticks.size();
+        if (size >400){
+            candlesticks = candlesticks.subList(size-200,size);
+        }
         BaseBarSeries series = new BaseBarSeries("my_live_series" );
         int j = 0;
         for (Candlestick bar:candlesticks) {

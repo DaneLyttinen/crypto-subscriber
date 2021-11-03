@@ -21,11 +21,10 @@ public class technical_indicators {
     @Path("/bollingerBands/{sma_interval}/{sd_interval}")
     public Response createBollinger(indicator_requestDTO IndicatorRequest, @PathParam("sma_interval") int sma_interval, @PathParam("sd_interval") int sd_interval){
         BinanceExchange instance = BinanceExchange.getInstance();
-        System.out.println(IndicatorRequest.getCoin());
         BaseBarSeries series = instance.getMarketData(IndicatorRequest.getInterval(), IndicatorRequest.getCoin());
         bollingerBands bollingerBands = new bollingerBands(sma_interval, sd_interval, series);
+        bollingerBands.createBollinger();
         instance.webSocketClient.onCandlestickEvent(IndicatorRequest.getCoin(), instance.Interval, response -> bollingerBands.handleSocketEvent(response));
-        LOGGER.info("logger works");
         return Response.ok().entity("Service online").build();
     }
 

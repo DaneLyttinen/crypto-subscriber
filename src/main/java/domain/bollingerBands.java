@@ -31,7 +31,7 @@ public class bollingerBands {
     private BaseBarSeries series;
     //private BaseBarSeries series;
 
-    private static Logger LOGGER = LoggerFactory.getLogger(technical_indicators.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(bollingerBands.class);
 
     public bollingerBands(int sma_interval, int sd_interval, BaseBarSeries series){
         this.sma_interval = sma_interval;
@@ -61,7 +61,6 @@ public class bollingerBands {
             last_unix = res.getCloseTime();
             series = series.getSubSeries(1, 201);
         }
-        System.out.println(series.getBarCount());
     }
 
     public void createBollinger(){
@@ -70,6 +69,7 @@ public class bollingerBands {
         SMAIndicator sma = new SMAIndicator(closePrice, sma_interval);
         StandardDeviationIndicator sd = new StandardDeviationIndicator(closePrice, sd_interval);
 
+        System.out.println(last);
         bbmSMA = new BollingerBandsMiddleIndicator(sma);
         bbmUpper = new BollingerBandsUpperIndicator(bbmSMA, sd);
         bbmLower = new BollingerBandsLowerIndicator(bbmSMA, sd);
