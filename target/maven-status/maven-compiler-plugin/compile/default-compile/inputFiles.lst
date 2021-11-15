@@ -1,10 +1,13 @@
-C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\Exchanges\interval.java
 C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\domain\bollingerBands.java
 C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\Exchanges\BinanceExchange.java
-C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\service\TestResource.java
 C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\Exchanges\Exchange.java
+C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\common\Config.java
 C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\example.java
 C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\indicator.java
-C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\service\technical_indicators.java
 C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\service\IndicatorApplication.java
+C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\cloud\CreatePublisher.java
+C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\Exchanges\interval.java
+C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\service\TestResource.java
+C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\cloud\CreateTopic.java
+C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\service\technical_indicators.java
 C:\Users\Dane\Documents\GitHub\crypto-subscriber\src\main\java\dto\indicator_requestDTO.java

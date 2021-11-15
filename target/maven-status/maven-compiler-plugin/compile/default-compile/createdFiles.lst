@@ -1,4 +1,6 @@
 service\TestResource.class
 domain\bollingerBands.class
-example.class
+cloud\CreateTopic.class
 dto\indicator_requestDTO.class
+example.class
+cloud\CreatePublisher.class

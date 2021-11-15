@@ -1,6 +1,10 @@
 package domain;
 
 import com.binance.api.client.domain.event.CandlestickEvent;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.pubsub.v1.Publisher;
+import com.google.protobuf.ByteString;
+import com.google.pubsub.v1.PubsubMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.ta4j.core.Bar;
@@ -19,6 +23,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.concurrent.ExecutionException;
 
 public class bollingerBands {
     private int sma_interval;
@@ -29,14 +34,16 @@ public class bollingerBands {
     private long last_unix;
     private Bar last_bar;
     private BaseBarSeries series;
+    private Publisher publisher;
     //private BaseBarSeries series;
 
     private static Logger LOGGER = LoggerFactory.getLogger(bollingerBands.class);
 
-    public bollingerBands(int sma_interval, int sd_interval, BaseBarSeries series){
+    public bollingerBands(int sma_interval, int sd_interval, BaseBarSeries series, Publisher publisher){
         this.sma_interval = sma_interval;
         this.sd_interval = sd_interval;
         this.series = series;
+        this.publisher = publisher;
     }
 
     public void handleSocketEvent(CandlestickEvent res){
@@ -63,7 +70,7 @@ public class bollingerBands {
         }
     }
 
-    public void createBollinger(){
+    public void createBollinger() {
         TypicalPriceIndicator closePrice = new TypicalPriceIndicator(series);
         int last = series.getBarCount()-1;
         SMAIndicator sma = new SMAIndicator(closePrice, sma_interval);
@@ -80,16 +87,22 @@ public class bollingerBands {
         publish(last);
     }
 
-    public void publish(int last){
+    public void publish(int last) {
         float close = last_bar.getClosePrice().floatValue();
-
+        String message = null;
         if (close >= bbmUpper.getValue(last).floatValue()){
             //publish alert of overbuying, potential sell
+            message = "Potential sell";
             System.out.println("potential sell");
         }
         if (close <= bbmLower.getValue(last).floatValue()){
             //publish alert of overselling, potential buy
-            System.out.println("potential buy");
+            message = "Potential buy";
+        }
+        if (message != null){
+            ByteString data = ByteString.copyFromUtf8(message);
+            PubsubMessage pubsubMessage = PubsubMessage.newBuilder().setData(data).build();
+            ApiFuture<String> messageIdFuture = publisher.publish(pubsubMessage);
         }
     }
 

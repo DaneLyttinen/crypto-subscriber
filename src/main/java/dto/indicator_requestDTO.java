@@ -6,12 +6,19 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class indicator_requestDTO {
     private String coin;
     private String interval;
+    private String exchange;
 
     public indicator_requestDTO(){
 
     }
 
-    public indicator_requestDTO(String coin,String interval){
+    public indicator_requestDTO(String coin,String interval, String exchange){
+        this.coin = coin;
+        this.interval = interval;
+        this.exchange = exchange;
+    }
+
+    public indicator_requestDTO(String coin, String interval){
         this.coin = coin;
         this.interval = interval;
     }
@@ -31,6 +38,10 @@ public class indicator_requestDTO {
     public void setInterval(String interval) {
         this.interval = interval;
     }
+
+    public void setExchange(String exchange){this.exchange = exchange;}
+
+    public String getExchange(){return exchange;}
 
     @Override
     public boolean equals(Object o) {

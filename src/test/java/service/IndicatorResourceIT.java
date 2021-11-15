@@ -7,7 +7,9 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,9 +33,11 @@ public class IndicatorResourceIT {
         client = null;
     }
     @Test
-    public void testGetTechnicalIndicator() {
+    public void testGetTechnicalIndicator() throws InterruptedException {
         indicator_requestDTO IndicatorRequest = new indicator_requestDTO("ETHBUSD", "15m");
         Response indicator = client.target(WEB_SERVICE_URI+"/bollingerBands/21/21").request().post(Entity.json(IndicatorRequest));
         assertEquals(200,indicator.getStatus() );
+        Thread.sleep(2000);
     }
+
 }
